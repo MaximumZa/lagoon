@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lagoon Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Adding Google Fonts for clean typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Adding FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+        <em>Dark Mode</em>
+    </div>
+
+    <div class="container">
+        <!-- Left Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-dharmachakra logo-icon"></i>
+                    <h2>Lagoon Docs</h2>
+                </div>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" placeholder="Search documentation..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#welcome" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li>
+                        <a href="#getting-started" class="dropdown-trigger"><i class="fas fa-rocket"></i> Getting Started <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#quickstart">Quickstart Guide</a></li>
+                            <li><a href="#requirements">Requirements</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#architecture"><i class="fas fa-layer-group"></i> Architecture</a></li>
+                    <li><a href="#build-deploy"><i class="fas fa-cogs"></i> Build & Deploy</a></li>
+                    <li><a href="#use-cases"><i class="fas fa-laptop-code"></i> Use Cases</a></li>
+                    <li><a href="#api-reference"><i class="fas fa-book"></i> API Reference</a></li>
+                    <li><a href="#resources"><i class="fas fa-link"></i> Resources</a></li>
+                    <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="#contributing"><i class="fas fa-code-branch"></i> Contributing</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="https://github.com/uselagoon/lagoon" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/uselagoon" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://slack.lagoon.sh" target="_blank" title="Slack"><i class="fab fa-slack"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <div class="content-header" id="welcome">
+                <nav class="breadcrumbs">
+                    <span>Documentation</span> / <span>Home</span>
+                </nav>
+                <h1>Welcome to Lagoon Documentation</h1>
+                <div class="version-tag">Version 2.22</div>
+            </div>
+            
+            <section class="content-section">
+                <h2>What is Lagoon?</h2>
+                <div class="feature-box">
+                    <p>
+                        Lagoon is an open-source application delivery platform designed for Kubernetes and OpenShift. It solves what developers dream about: a system that allows developers to locally develop their code and services with Docker and run the exact same system in production. The same container images, service configurations, and code can be used across environments, making deployment seamless and consistent.
+                    </p>
+                    <div class="interactive-card">
+                        <div class="card-header">
+                            <i class="fas fa-thumbs-up"></i> Key Benefits
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Same docker images in development and production</li>
+                                <li>No need for developers to understand Kubernetes</li>
+                                <li>Automated deployments via Git integration</li>
+                                <li>Handles complex workloads like CMS and LMS applications</li>
+                                <li>Horizontally scalable for high-traffic applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section" id="architecture">
+                <h2>Architecture</h2>
+                <div class="expandable-section">
+                    <div class="expandable-header">
+                        <h3>Core Components</h3>
+                        <button class="expand-button"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+                    <div class="expandable-content">
+                        <p>
+                            Lagoon is built on a microservices architecture, allowing for flexibility and scalability. It uses Docker containers to encapsulate applications and their dependencies, ensuring consistency across environments.
+                        </p>
+                        <p>
+                            Lagoon comprises two main components:
+                        </p>
+                        <ul>
+                            <li><strong>Lagoon Core:</strong> The central management component including API server, UI, and message queue</li>
+                            <li><strong>Lagoon Remote:</strong> The deployment environment component that handles builds and runtime operations</li>
+                        </ul>
+                        <p>
+                            These can be installed in separate Kubernetes clusters for enhanced security, with all inter-cluster communication happening via RabbitMQ. A single Lagoon Core installation can serve multiple Remotes, creating a flexible and secure architecture.
+                        </p>
+                        <p>
+                            Most Lagoon services are built in Node.js, with more recent development occurring in Go, and automation/scripting components written in Bash.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="tabs-container" id="build-deploy">
+                <h2>Build and Deploy Process</h2>
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="overview">Overview</button>
+                    <button class="tab-button" data-tab="workflow">Workflow</button>
+                    <button class="tab-button" data-tab="configuration">Configuration</button>
+                </div>
+                
+                <div class="tab-content active" id="overview">
+                    <p>
+                        Lagoon follows a comprehensive process when deploying applications:
+                    </p>
+                    <ol>
+                        <li>Sets up the OpenShift project/Kubernetes namespace for the environment</li>
+                        <li>Reads your docker-compose.yml file to understand service configuration</li>
+                        <li>Builds Docker images for each service defined</li>
+                        <li>Configures Kubernetes or OpenShift services and routes</li>
+                        <li>Pushes and tags images to the registry</li>
+                        <li>Sets up persistent storage for services that need it</li>
+                        <li>Configures cron jobs as needed</li>
+                        <li>Runs defined pre-rollout tasks</li>
+                        <li>Creates Deployments, Statefulsets, or Daemonsets based on service types</li>
+                    </ol>
+                </div>
+                
+                <div class="tab-content" id="workflow">
+                    <p>The Lagoon deployment workflow consists of these steps:</p>
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Git Push</h4>
+                                <p>Developer pushes code to Git repository</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Webhook Trigger</h4>
+                                <p>Git provider sends webhook to Lagoon</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Build Process</h4>
+                                <p>Lagoon builds Docker images</p>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Deployment</h4>
+                                <p>Images are deployed to the environment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="configuration">
+                    <h3>Example Configuration</h3>
+                    <div class="code-block">
+                        <pre><code># .lagoon.yml file example
+docker-compose-yaml: docker-compose.yml
+
+environments:
+  main:
+    routes:
+      - nginx:
+          - example.com
+    cronjobs:
+      - name: drush cron
+        schedule: "*/15 * * * *"
+        command: drush cron
+        service: cli</code></pre>
+                    </div>
+                    <p>This configuration specifies how Lagoon should handle the "main" environment, including which routes to expose and what cronjobs to configure.</p>
+                </div>
+            </div>
+
+            <section class="content-section" id="use-cases">
+                <h2>Use Cases</h2>
+                <div class="toggle-cards">
+                    <div class="toggle-card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <h3>Drupal at Scale</h3>
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <div class="card-content">
+                            <p>
+                                Lagoon excels at hosting Drupal websites and can handle high-traffic scenarios:
+                            </p>
+                            <ul>
+                                <li>Runs Drupal with Varnish, NGINX, PHP, MariaDB, Solr, Redis, and more in separate containers</li>
+                                <li>Enables decoupled Drupal setups with Node.js running alongside regular Drupal containers</li>
+                                <li>Manages cache tags across all cache layers for optimal performance</li>
+                                <li>Creates individual environments for each git branch or pull request for better testing</li>
+                                <li>Successfully handles sites with 110+ million page hits per month</li>
+                            </ul>
+                            <div class="success-story">
+                                <div class="story-header">Success Story: Australian Government</div>
+                                <p>Multiple Australian Government websites run on Lagoon-powered Drupal infrastructure, handling millions of visitors during peak events like elections and emergency announcements.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <h3>Development Workflow</h3>
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <div class="card-content">
+                            <ul>
+                                <li>Developers can work locally with Docker and have the exact same setup in production</li>
+                                <li>Simple deployment: just push to your Git repository and Lagoon handles the rest</li>
+                                <li>Uses Alpine Linux for container installs from Docker images to optimize size</li>
+                                <li>Integrates with tools like Ansible, Jenkins, TravisCI, and CircleCI for configuration management</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># Local development command example
+docker-compose up -d
+# Make changes to your code
+git commit -am "Made some changes"
+git push # Lagoon handles the rest!</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section" id="faq">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            What makes Lagoon different from other deployment solutions?
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Lagoon distinguishes itself from other deployment solutions through its unique approach of using the same Docker setup across local development and production environments. This eliminates the "it works on my machine" problem. Additionally, Lagoon is specifically optimized for CMS platforms like Drupal and WordPress, offering specialized features for these workloads while maintaining flexibility for other application types.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            Does Lagoon support multi-cluster deployments?
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, Lagoon supports multi-cluster deployments through its Core/Remote architecture. A single Lagoon Core can manage multiple Remote installations, allowing for deployments across different regions, cloud providers, or infrastructure configurations. This enables high availability and geographic distribution of workloads.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            Can I deploy Lagoon on any Kubernetes cluster?
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Lagoon is designed to work with any Kubernetes-compliant cluster as well as OpenShift. The recommended minimum Kubernetes version is 1.20+. While Lagoon does not require any special cloud provider features, it can leverage specific capabilities when available for enhanced functionality.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section" id="resources">
+                <h2>Resources</h2>
+                <div class="resource-grid">
+                    <a href="https://docs.lagoon.sh/" target="_blank" class="resource-card">
+                        <i class="fas fa-book resource-icon"></i>
+                        <h3>Official Documentation</h3>
+                        <p>Comprehensive guides covering concepts, installation, and usage</p>
+                    </a>
+                    <a href="https://github.com/uselagoon/lagoon" target="_blank" class="resource-card">
+                        <i class="fab fa-github resource-icon"></i>
+                        <h3>GitHub Repository</h3>
+                        <p>Source code and contribution guidelines</p>
+                    </a>
+                    <a href="https://docs.lagoon.sh/concepts-basics/build-and-deploy-process/" target="_blank" class="resource-card">
+                        <i class="fas fa-cogs resource-icon"></i>
+                        <h3>Build and Deploy Guide</h3>
+                        <p>Detailed explanation of deployment processes</p>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=3RnZPrjvoqo" target="_blank" class="resource-card">
+                        <i class="fab fa-youtube resource-icon"></i>
+                        <h3>Introduction Video</h3>
+                        <p>"OpenSource Docker Build & Deployment System" presentation</p>
+                    </a>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                <div class="footer-content">
+                    <p>&copy; 2025 Lagoon Documentation. Licensed under MIT.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Use</a>
+                        <a href="#">Contact Us</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('sidebar-open');
+        });
+
+        // Toggle dark/light mode
+        document.getElementById('checkbox').addEventListener('change', function() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('checkbox').checked = true;
+        }
+
+        // Expandable sections
+        document.querySelectorAll('.expandable-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const button = this.querySelector('.expand-button i');
+                content.classList.toggle('expanded');
+                button.classList.toggle('fa-chevron-down');
+                button.classList.toggle('fa-chevron-up');
+            });
+        });
+
+        // Tabs functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons and content
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Show corresponding content
+                document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // Toggle FAQ items
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            answer.classList.toggle('active');
+            icon.classList.toggle('fa-plus');
+            icon.classList.toggle('fa-minus');
+        }
+
+        // Toggle cards
+        function toggleCard(element) {
+            const card = element.closest('.toggle-card');
+            const content = card.querySelector('.card-content');
+            const icon = element.querySelector('i');
+            
+            content.classList.toggle('active');
+            icon.classList.toggle('fa-angle-down');
+            icon.classList.toggle('fa-angle-up');
+        }
+
+        // Dropdown menus in sidebar
+        document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
+            trigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.classList.toggle('active');
+                this.nextElementSibling.classList.toggle('show');
+            });
+        });
+        
+        // Scroll to top button
+        window.onscroll = function() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                document.getElementById('scrollToTop').style.display = 'flex';
+            } else {
+                document.getElementById('scrollToTop').style.display = 'none';
+            }
+        };
+        
+        document.getElementById('scrollToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
